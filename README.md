@@ -1,6 +1,6 @@
 # <img src="public/email_logo.png" align="left" width=50 height=40>React-Email-Editor
 
-A [React.js](https://reactjs.org/) wrapper component of our [Email-Editor](https://github.com/ravenappdev/email-editor). It is built on [craft.js](https://craft.js.org/) that provides a drag-n-drop system and handles the way user components should be rendered, updated, and moved. It loads in an iframe and can be embedded directly in your application.
+A [React.js](https://reactjs.org/) wrapper component around [Email-Editor](https://github.com/ravenappdev/email-editor). It is built on [craft.js](https://craft.js.org/) that provides a drag-n-drop system and handles the way user components should be rendered, updated, and moved. It loads in an iframe and can be embedded directly in your application.
 
 ![Optional Text](public/email_template.png)
 
