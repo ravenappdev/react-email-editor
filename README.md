@@ -9,7 +9,7 @@ A [React.js](https://reactjs.org/) wrapper component around [Email-Editor](https
 To use the React Email Editor, install it from NPM and include it in your own React build process.
 
 ```
-npm install react-email-editor --save
+npm i raven-react-email-editor
 ```
 
 ## Example Usage
