@@ -1,6 +1,6 @@
 {
   "name": "raven-react-email-editor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Raven's email editor component for React.js",
   "main": "./lib/EmailEditor.js",
   "repository": {
