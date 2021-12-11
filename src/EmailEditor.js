@@ -1,15 +1,24 @@
-import React, { useCallback, useEffect } from "react";
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+} from "react";
 const EDITOR_HOST = "https://console.ravenapp.dev/email-editor";
 var prevCallback = null;
 
-export default function EmailEditor({
-  className,
-  state,
-  onEditorLoad,
-  triggerFetch,
-  onFetched,
-  ...rest
-}) {
+function EmailEditor(
+  {
+    className,
+    state,
+    onEditorLoad,
+    triggerFetch,
+    onFetched,
+    forwardedRef,
+    ...rest
+  },
+  ref
+) {
   const receiveMessage = useCallback(
     (event) => {
       //TO FIX: repeat calls to receive messge
@@ -28,7 +37,6 @@ export default function EmailEditor({
     },
     [onEditorLoad, onFetched]
   );
-
   useEffect(() => {
     window.removeEventListener("message", prevCallback);
     prevCallback = receiveMessage;
@@ -36,14 +44,14 @@ export default function EmailEditor({
     window.addEventListener("message", receiveMessage);
   }, [receiveMessage]);
 
-  useEffect(() => {
-    if (triggerFetch) {
+  useImperativeHandle(ref, () => ({
+    fetchState() {
       window.frames["emailEditor"].postMessage(
         { message: "fetchState", value: true },
         EDITOR_HOST
       );
-    }
-  }, [triggerFetch]);
+    },
+  }));
 
   const onLoad = () => {
     window.frames["emailEditor"].postMessage(
@@ -56,7 +64,8 @@ export default function EmailEditor({
 
   return (
     <iframe
-      title="my-frame"
+      title={"my-editor"}
+      ref={ref}
       name="emailEditor"
       frameBorder="0"
       marginWidth="0"
@@ -68,3 +77,6 @@ export default function EmailEditor({
     />
   );
 }
+
+const forwardedEditor = forwardRef(EmailEditor);
+export default forwardedEditor;
