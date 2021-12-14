@@ -8,6 +8,16 @@ module.exports = {
     filename: "EmailEditor.js",
     libraryTarget: "commonjs2",
   },
+  plugins: [
+    new Dotenv({
+      path: "./editor.env",
+      safe: true,
+      allowEmptyValues: true,
+      systemvars: true,
+      silent: true,
+      defaults: false,
+    }),
+  ],
   module: {
     rules: [
       {

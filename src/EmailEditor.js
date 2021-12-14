@@ -6,14 +6,14 @@ import React, {
 } from "react";
 
 var prevCallback = null;
+const DEFAULT_HOST = process.env.DEFAULT_HOST;
 function EmailEditor(
   {
     className,
     state,
     onEditorLoad,
     onFetched,
-    forwardedRef,
-    editorHost = process.env.REACT_APP_EMAIL_EDITOR_URL,
+    editorHost = DEFAULT_HOST,
     ...rest
   },
   ref
