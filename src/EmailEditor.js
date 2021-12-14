@@ -13,7 +13,7 @@ function EmailEditor(
     state,
     onEditorLoad,
     onFetched,
-    editorHost = DEFAULT_HOST,
+    editorHostUrl = DEFAULT_HOST,
     ...rest
   },
   ref
@@ -21,7 +21,7 @@ function EmailEditor(
   const receiveMessage = useCallback(
     (event) => {
       //TO FIX: repeat calls to receive messge
-      if (!editorHost.includes(event.origin)) return;
+      if (!editorHostUrl.includes(event.origin)) return;
       const message = event.data.message;
       switch (message) {
         case "editorLoaded":
@@ -34,7 +34,7 @@ function EmailEditor(
         default:
       }
     },
-    [onEditorLoad, onFetched, editorHost]
+    [onEditorLoad, onFetched, editorHostUrl]
   );
   useEffect(() => {
     window.removeEventListener("message", prevCallback);
@@ -47,7 +47,7 @@ function EmailEditor(
     fetchState() {
       window.frames["emailEditor"].postMessage(
         { message: "fetchState", value: true },
-        editorHost
+        editorHostUrl
       );
     },
   }));
@@ -55,7 +55,7 @@ function EmailEditor(
   const onLoad = () => {
     window.frames["emailEditor"].postMessage(
       { message: "loadEditor", value: state },
-      editorHost
+      editorHostUrl
     );
     // window.removeEventListener("beforeunload", onPageUnload);
     // window.addEventListener("beforeunload", onPageUnload);
@@ -72,7 +72,7 @@ function EmailEditor(
       width="100%"
       height="100%"
       onLoad={onLoad}
-      src={editorHost}
+      src={editorHostUrl}
     />
   );
 }
