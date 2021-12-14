@@ -15,7 +15,7 @@ function EmailEditor(
     triggerFetch,
     onFetched,
     forwardedRef,
-    EDITOR_HOST,
+    EDITOR_HOST = "https://console.ravenapp.dev/email-editor",
     ...rest
   },
   ref

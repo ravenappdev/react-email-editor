@@ -41,7 +41,6 @@ const myStyle = {
     height: "91.9%",
   },
 };
-const EDITOR_HOST = "https://console.ravenapp.dev/email-editor";
 
 function App() {
   const [savedState, setSavedState] = useState({ state: "", html: "" });
@@ -80,7 +79,6 @@ function App() {
           onEditorLoad={onLoad}
           onFetched={onFetched}
           ref={editorRef}
-          EDITOR_HOST={EDITOR_HOST}
         />
       </div>
     </div>
