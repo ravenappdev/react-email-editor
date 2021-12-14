@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useImperativeHandle,
 } from "react";
-const EDITOR_HOST = "https://console.ravenapp.dev/email-editor";
+
 var prevCallback = null;
 
 function EmailEditor(
@@ -15,6 +15,7 @@ function EmailEditor(
     triggerFetch,
     onFetched,
     forwardedRef,
+    EDITOR_HOST,
     ...rest
   },
   ref
@@ -35,7 +36,7 @@ function EmailEditor(
         default:
       }
     },
-    [onEditorLoad, onFetched]
+    [onEditorLoad, onFetched, EDITOR_HOST]
   );
   useEffect(() => {
     window.removeEventListener("message", prevCallback);

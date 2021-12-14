@@ -17,6 +17,7 @@ npm i raven-react-email-editor
 ```
 import React, { useState, useCallback, useRef } from "react";
 import EmailEditor from "raven-react-email-editor";
+
 const myStyle = {
   div: {
     height: "100vh",
@@ -40,6 +41,7 @@ const myStyle = {
     height: "91.9%",
   },
 };
+const EDITOR_HOST = "https://console.ravenapp.dev/email-editor";
 
 function App() {
   const [savedState, setSavedState] = useState({ state: "", html: "" });
@@ -78,6 +80,7 @@ function App() {
           onEditorLoad={onLoad}
           onFetched={onFetched}
           ref={editorRef}
+          EDITOR_HOST={EDITOR_HOST}
         />
       </div>
     </div>
@@ -85,6 +88,7 @@ function App() {
 }
 
 export default App;
+
 
 ```
 
