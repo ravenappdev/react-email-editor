@@ -90,12 +90,11 @@ export default App;
 
 ### Props
 
-| **props**        | **description**                                                                                                                                                            |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **onEditorLoad** | callback when editor has loaded completely. Params - empty                                                                                                                 |
-| **onFetched**    | callback that gives the state of editor and html of the email. Params - state, html                                                                                        |
-| **state**        | describes the editor's state. pass a state you saved earlier to load an already designed email. pass empty to load an empty editor.                                        |
-| **triggerfetch** | boolean that triggers the editor to fetch the state. Set to true when you have to fetch the state and html of the editor. When fetched, the onfetched callback is invoked. |
+| **props**        | **description**                                                                                                                     |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| **onEditorLoad** | callback when editor has loaded completely. Params - empty                                                                          |
+| **onFetched**    | callback that gives the state of editor and html of the email. Params - state, html                                                 |
+| **state**        | describes the editor's state. pass a state you saved earlier to load an already designed email. pass empty to load an empty editor. |
 
 ## License
 
