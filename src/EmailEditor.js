@@ -6,16 +6,14 @@ import React, {
 } from "react";
 
 var prevCallback = null;
-
 function EmailEditor(
   {
     className,
     state,
     onEditorLoad,
-    triggerFetch,
     onFetched,
     forwardedRef,
-    EDITOR_HOST = "https://console.ravenapp.dev/email-editor",
+    editorHost = process.env.REACT_APP_EMAIL_EDITOR_URL,
     ...rest
   },
   ref
@@ -23,7 +21,7 @@ function EmailEditor(
   const receiveMessage = useCallback(
     (event) => {
       //TO FIX: repeat calls to receive messge
-      if (!EDITOR_HOST.includes(event.origin)) return;
+      if (!editorHost.includes(event.origin)) return;
       const message = event.data.message;
       switch (message) {
         case "editorLoaded":
@@ -36,7 +34,7 @@ function EmailEditor(
         default:
       }
     },
-    [onEditorLoad, onFetched, EDITOR_HOST]
+    [onEditorLoad, onFetched, editorHost]
   );
   useEffect(() => {
     window.removeEventListener("message", prevCallback);
@@ -49,7 +47,7 @@ function EmailEditor(
     fetchState() {
       window.frames["emailEditor"].postMessage(
         { message: "fetchState", value: true },
-        EDITOR_HOST
+        editorHost
       );
     },
   }));
@@ -57,7 +55,7 @@ function EmailEditor(
   const onLoad = () => {
     window.frames["emailEditor"].postMessage(
       { message: "loadEditor", value: state },
-      EDITOR_HOST
+      editorHost
     );
     // window.removeEventListener("beforeunload", onPageUnload);
     // window.addEventListener("beforeunload", onPageUnload);
@@ -74,7 +72,7 @@ function EmailEditor(
       width="100%"
       height="100%"
       onLoad={onLoad}
-      src={EDITOR_HOST}
+      src={editorHost}
     />
   );
 }
