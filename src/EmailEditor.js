@@ -1,19 +1,27 @@
-import React, { useCallback, useEffect } from "react";
-const EDITOR_HOST = "https://console.ravenapp.dev/email-editor";
-var prevCallback = null;
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+} from "react";
 
-export default function EmailEditor({
-  className,
-  state,
-  onEditorLoad,
-  triggerFetch,
-  onFetched,
-  ...rest
-}) {
+var prevCallback = null;
+const DEFAULT_HOST = process.env.DEFAULT_HOST;
+function EmailEditor(
+  {
+    className,
+    state,
+    onEditorLoad,
+    onFetched,
+    editorHostUrl = DEFAULT_HOST,
+    ...rest
+  },
+  ref
+) {
   const receiveMessage = useCallback(
     (event) => {
       //TO FIX: repeat calls to receive messge
-      if (!EDITOR_HOST.includes(event.origin)) return;
+      if (!editorHostUrl.includes(event.origin)) return;
       const message = event.data.message;
       switch (message) {
         case "editorLoaded":
@@ -26,9 +34,8 @@ export default function EmailEditor({
         default:
       }
     },
-    [onEditorLoad, onFetched]
+    [onEditorLoad, onFetched, editorHostUrl]
   );
-
   useEffect(() => {
     window.removeEventListener("message", prevCallback);
     prevCallback = receiveMessage;
@@ -36,19 +43,19 @@ export default function EmailEditor({
     window.addEventListener("message", receiveMessage);
   }, [receiveMessage]);
 
-  useEffect(() => {
-    if (triggerFetch) {
+  useImperativeHandle(ref, () => ({
+    fetchState() {
       window.frames["emailEditor"].postMessage(
         { message: "fetchState", value: true },
-        EDITOR_HOST
+        editorHostUrl
       );
-    }
-  }, [triggerFetch]);
+    },
+  }));
 
   const onLoad = () => {
     window.frames["emailEditor"].postMessage(
       { message: "loadEditor", value: state },
-      EDITOR_HOST
+      editorHostUrl
     );
     // window.removeEventListener("beforeunload", onPageUnload);
     // window.addEventListener("beforeunload", onPageUnload);
@@ -56,7 +63,8 @@ export default function EmailEditor({
 
   return (
     <iframe
-      title="my-frame"
+      title={"my-editor"}
+      ref={ref}
       name="emailEditor"
       frameBorder="0"
       marginWidth="0"
@@ -64,7 +72,10 @@ export default function EmailEditor({
       width="100%"
       height="100%"
       onLoad={onLoad}
-      src={EDITOR_HOST}
+      src={editorHostUrl}
     />
   );
 }
+
+const forwardedEditor = forwardRef(EmailEditor);
+export default forwardedEditor;

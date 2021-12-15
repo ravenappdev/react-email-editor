@@ -15,7 +15,7 @@ npm i raven-react-email-editor
 ## Example Usage
 
 ```
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import EmailEditor from "raven-react-email-editor";
 
 const myStyle = {
@@ -44,68 +44,59 @@ const myStyle = {
 
 function App() {
   const [savedState, setSavedState] = useState({ state: "", html: "" });
-  const [fetchState, setFetchState] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-
+  const editorRef = useRef(null);
   const onLoad = () => {
     setIsLoaded(true);
   };
 
-  const onFetched = useCallback(
-    (state, html) => {
-      if (fetchState) {
-        setSavedState((prevState) => ({
-          ...prevState,
-          state: state,
-          html: html,
-        }));
-        setIsLoaded(true);
-      }
-    },
-    [fetchState]
-  );
+  const onFetched = useCallback((state, html) => {
+    setSavedState((prevState) => ({
+      ...prevState,
+      state: state,
+      html: html,
+    }));
+    setIsLoaded(true);
+  }, []);
 
   const onEditorSave = useCallback(() => {
     if (isLoaded) {
       setIsLoaded(false);
-      setFetchState(true);
+      editorRef.current.fetchState();
     }
   }, [isLoaded]);
 
   return (
     <div style={myStyle.div}>
-
       <nav style={myStyle.nav}>
         <button onClick={onEditorSave} style={myStyle.button}>
           SAVE
         </button>
       </nav>
-
       <div style={myStyle.editor}>
         <EmailEditor
           state={savedState.state}
           onEditorLoad={onLoad}
-          triggerFetch={fetchState}
           onFetched={onFetched}
+          ref={editorRef}
         />
       </div>
-
     </div>
   );
 }
 
 export default App;
 
+
 ```
 
 ### Props
 
-| **props**        | **description**                                                                                                                                                            |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **onEditorLoad** | callback when editor has loaded completely. Params - empty                                                                                                                 |
-| **onFetched**    | callback that gives the state of editor and html of the email. Params - state, html                                                                                        |
-| **state**        | describes the editor's state. pass a state you saved earlier to load an already designed email. pass empty to load an empty editor.                                        |
-| **triggerfetch** | boolean that triggers the editor to fetch the state. Set to true when you have to fetch the state and html of the editor. When fetched, the onfetched callback is invoked. |
+| **props**        | **description**                                                                                                                     |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| **onEditorLoad** | callback when editor has loaded completely. Params - empty                                                                          |
+| **onFetched**    | callback that gives the state of editor and html of the email. Params - state, html                                                 |
+| **state**        | describes the editor's state. pass a state you saved earlier to load an already designed email. pass empty to load an empty editor. |
 
 ## License
 

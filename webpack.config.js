@@ -1,5 +1,5 @@
 const path = require("path");
-
+const Dotenv = require("dotenv-webpack");
 module.exports = {
   mode: "production",
   entry: "./src/EmailEditor.js",
@@ -8,6 +8,16 @@ module.exports = {
     filename: "EmailEditor.js",
     libraryTarget: "commonjs2",
   },
+  plugins: [
+    new Dotenv({
+      path: "./editor.env",
+      safe: true,
+      allowEmptyValues: true,
+      systemvars: true,
+      silent: true,
+      defaults: false,
+    }),
+  ],
   module: {
     rules: [
       {

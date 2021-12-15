@@ -1,6 +1,6 @@
 {
   "name": "raven-react-email-editor",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Raven's email editor component for React.js",
   "main": "./lib/EmailEditor.js",
   "repository": {
@@ -19,6 +19,7 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^3.5.1",
+    "dotenv-webpack": "^7.0.3",
     "path": "^0.12.7",
     "prop-types": "^15.6.0",
     "react": "^16.14.0",
