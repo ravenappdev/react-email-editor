@@ -18,6 +18,7 @@ function EmailEditor(
   },
   ref
 ) {
+  console.log(editorHostUrl);
   const receiveMessage = useCallback(
     (event) => {
       //TO FIX: repeat calls to receive messge
