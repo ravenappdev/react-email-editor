@@ -4,6 +4,10 @@ A [React.js](https://reactjs.org/) wrapper component around [Email-Editor](https
 
 ![Optional Text](public/email_template.png)
 
+## Live Demo
+
+Checkout the demo app here - https://email-editor-demo-mu.vercel.app/
+
 ## Installation
 
 To use the React Email Editor, install it from NPM and include it in your own React build process.
