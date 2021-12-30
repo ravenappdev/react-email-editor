@@ -6,7 +6,7 @@ A [React.js](https://reactjs.org/) wrapper component around [Email-Editor](https
 
 ## Live Demo
 
-Checkout the demo app here - https://email-editor-demo-mu.vercel.app/
+Checkout the demo app here - https://email-editor-demo-blue.vercel.app/
 
 ## Installation
 
